@@ -22,7 +22,7 @@ public class User {
 
         for (User user : allUsers) {
             if (user.username.equals(username)) {
-                throw new InvalidOperationException("Username already exists");
+                throw new InvalidOperationException("Username exists from before");
             }
         }
 
@@ -59,6 +59,19 @@ public class User {
     public void setBehavior(UserBehavior behavior) {
         this.behavior = behavior;
     }
+
+    public void buyPremium(int month) {
+        this.behavior.buyPremium(this, month);
+    }
+
+    public void createPlaylist(String title) {
+        this.behavior.createPlaylist(title, this);
+    }
+
+    public void addPlaylist(Playlist playlist) {
+        playlists.add(playlist);
+    }
+
 
     public void follow(User user) {
         if (user == null) {
