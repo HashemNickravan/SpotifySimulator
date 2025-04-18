@@ -1,6 +1,6 @@
 package com.spotify;
 import java.util.ArrayList;
-
+import java.util.Objects;
 
 public class User {
     private String username;
@@ -11,16 +11,20 @@ public class User {
     private ArrayList<Playlist> playlists = new ArrayList<>();
     private static ArrayList<User> allUsers = new ArrayList<>();
 
-
     public User(String username, String password) {
-        if(username == null || username.isEmpty())
-            throw new InvalidOperationException("Username cannot be empty");
+        if (username == null || username.isEmpty()) {
+            throw new InvalidOperationException("Username can not be empty");
+        }
 
-        if(password == null || password.length() < 8)
+        if (password == null || password.length() < 8) {
             throw new InvalidOperationException("Password must be at least 8 characters");
+        }
 
-        if(allUsers.stream().anyMatch(u -> u.username.equals(username)))
-            throw new InvalidOperationException("Username exists of before");
+        for (User user : allUsers) {
+            if (user.username.equals(username)) {
+                throw new InvalidOperationException("Username already exists");
+            }
+        }
 
         this.username = username;
         this.password = password;
@@ -28,25 +32,59 @@ public class User {
         allUsers.add(this);
     }
 
-    public UserBehavior getBehavior() {
-        return behavior;
+    public String getUsername() {
+        return username;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setBehavior(UserBehavior behavior) {
-        this.behavior = behavior;
+    public UserBehavior getBehavior() {
+        return behavior;
     }
 
     public ArrayList<Playlist> getPlaylists() {
         return playlists;
     }
 
+    public ArrayList<User> getFollowerList() {
+        return followerList;
+    }
+
+    public ArrayList<User> getFollowingList() {
+        return followingList;
+    }
+
+    public void setBehavior(UserBehavior behavior) {
+        this.behavior = behavior;
+    }
+
     public void follow(User user) {
-        if(user == null) throw new InvalidOperationException("User cannot be null");
-        this.followingList.add(user);
-        user.followerList.add(this);
+        if (user == null) {
+            throw new InvalidOperationException("User can not be null");
+        }
+
+        if (this.equals(user)) {
+            throw new InvalidOperationException("you Can not follow yourself");
+        }
+
+        if (!followingList.contains(user)) {
+            followingList.add(user);
+            user.followerList.add(this);
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(username, user.username);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username);
     }
 }
