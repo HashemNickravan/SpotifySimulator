@@ -5,12 +5,12 @@ public class RegularBehavior implements UserBehavior {
 
     @Override
     public void createPlaylist(String title, User owner) {
-        throw new InvalidOperationException("Regular users can't create playlists!");
+        throw new InvalidOperationException("Regular users can not create playlists:)");
     }
 
     @Override
     public void playMusic(Music music) {
-        if (playingLimit <= 0) throw new InvalidOperationException("Play limit reached!");
+        if (playingLimit <= 0) throw new InvalidOperationException("Play limit!!!");
         music.play();
         playingLimit--;
     }
