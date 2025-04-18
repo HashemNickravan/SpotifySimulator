@@ -31,4 +31,5 @@ public class Playlist {
         if(!playlist.remove(music))
             throw new InvalidOperationException("Music not exist in playlist");
     }
+
 }

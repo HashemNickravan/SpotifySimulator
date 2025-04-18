@@ -32,6 +32,10 @@ public class User {
         return behavior;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setBehavior(UserBehavior behavior) {
         this.behavior = behavior;
     }
