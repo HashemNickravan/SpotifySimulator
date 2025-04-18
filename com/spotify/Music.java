@@ -11,7 +11,7 @@ public class Music {
 
     public Music(String title, User singer) {
         if (title == null || singer == null) {
-            throw new IllegalArgumentException("Title and singer cannot be null");
+            throw new IllegalArgumentException("Title and singer can not be null");
         }
         this.title = title;
         this.singer = singer;
@@ -33,7 +33,7 @@ public class Music {
 
     public static List<Music> search(String title) {
         if (title == null) {
-            throw new IllegalArgumentException("Title cannot be null!");
+            throw new IllegalArgumentException("Title can not be null!");
         }
         List<Music> result = new ArrayList<>();
         for (Music music : allMusics) {
@@ -46,7 +46,7 @@ public class Music {
 
     public static Music search(String title, User singer) {
         if (title == null || singer == null) {
-            throw new IllegalArgumentException("Title and singer cannot be null!");
+            throw new IllegalArgumentException("Title and singer can not be null!");
         }
         for (Music music : allMusics) {
             if (music.getTitle().equals(title) && music.getSinger().equals(singer)) {
